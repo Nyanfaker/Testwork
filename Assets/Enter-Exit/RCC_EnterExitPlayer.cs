@@ -17,12 +17,16 @@ public class RCC_EnterExitPlayer : MonoBehaviour {
 
 	private GetInOutCar getInOutCar;
 
+    Player2 player2;
+
 	void Start(){
 
+        player2 = GetComponent<Player2>();
+ 
 		if (!rootOfPlayer)
 			rootOfPlayer = transform.root.gameObject;
 
-		GameObject carCamera = GameObject.FindObjectOfType<AutoCam>().gameObject;
+		GameObject carCamera = FindObjectOfType<AutoCam>().gameObject;
 		carCamera.SetActive(false);
 
 		getInOutCar = FindObjectOfType<GetInOutCar> ();
@@ -37,11 +41,20 @@ public class RCC_EnterExitPlayer : MonoBehaviour {
 
 			if(hit.transform.GetComponentInParent<RCC_EnterExitCar>()){
 
-				showGui = true;
+                if (!player2.Canister && !player2.Full)
+                {
+                    return;
+                }
+                else if (player2.Canister && !player2.Full)
+                {
+                    return;
+                }
+
+                showGui = true;
 
 				if ( getInOutCar.clicked) {
 
-					hit.transform.GetComponentInParent<CarController> ().SendMessage ("Act", rootOfPlayer, SendMessageOptions.DontRequireReceiver);
+					hit.transform.GetComponentInParent<CarController>().SendMessage("Act", rootOfPlayer, SendMessageOptions.DontRequireReceiver);
 					
 				}
 
@@ -56,8 +69,7 @@ public class RCC_EnterExitPlayer : MonoBehaviour {
 			showGui = false;
 
 		}
-
-			getInOutCar.gameObject.SetActive (showGui);
+        getInOutCar.gameObject.SetActive (showGui);
 		
 	}
 

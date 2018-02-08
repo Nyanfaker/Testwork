@@ -16,7 +16,7 @@ public class GetInOutCar : MonoBehaviour , IPointerClickHandler {
 	// Update is called once per frame
 	IEnumerator ClickedCoroutine () {
 		clicked = true;
-		yield return new WaitForEndOfFrame ();
+		yield return new WaitForSeconds (0.1f);
 		clicked = false;
 	}
 }

@@ -31,7 +31,7 @@ public class RCC_EnterExitCar : MonoBehaviour {
 			getOutPosition = getOutPos.transform;
 		}
 
-		getInOutCar = FindObjectOfType<GetInOutCar> ();
+		getInOutCar = FindObjectOfType<GetInOutCar>();
 	}
 	
 	void Update (){
