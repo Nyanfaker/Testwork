@@ -33,7 +33,13 @@ public class EventButton : MonoBehaviour {
         }
         if (!player2.Full && !filling)
         {
-            StartCoroutine(Filling());
+            StartCoroutine(Filling("Event_Fuel", "Canister is full"));
+            return;
+        }
+        if (player2.Full && !player2.Refuel && !filling)
+        {
+            StartCoroutine(Filling("Event_Car", "Car is full"));
+            return;
         }
     }
 
@@ -48,7 +54,7 @@ public class EventButton : MonoBehaviour {
         textEvent.enabled = false;
     }
 
-    IEnumerator Filling()
+    IEnumerator Filling(string name, string text)
     {
         filling = true;
         textEvent.text = "Filling";
@@ -67,11 +73,19 @@ public class EventButton : MonoBehaviour {
         }
         slider.gameObject.SetActive(false);
 
-        player2.Full = true;
-        Destroy(GameObject.Find("Event_Fuel").gameObject);
-        textEvent.text = "Canister is full";
+        if (!player2.Full)
+        {
+            player2.Full = true;
+        } else
+        {
+            player2.Refuel = true;
+        }
+        
+        Destroy(GameObject.Find(name).gameObject);
+        textEvent.text = text;
         yield return new WaitForSeconds(2f);
         textEvent.enabled = false;
+        filling = false;
     }
 
     public void Cancel()

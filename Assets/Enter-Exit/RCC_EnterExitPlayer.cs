@@ -41,11 +41,7 @@ public class RCC_EnterExitPlayer : MonoBehaviour {
 
 			if(hit.transform.GetComponentInParent<RCC_EnterExitCar>()){
 
-                if (!player2.Canister && !player2.Full)
-                {
-                    return;
-                }
-                else if (player2.Canister && !player2.Full)
+                if (!player2.Canister || !player2.Full || !player2.Refuel)
                 {
                     return;
                 }
